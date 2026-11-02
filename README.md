@@ -4,8 +4,8 @@ This is a research project which shows that AI is capable of integrating audio a
 Bluetooth technologies and demonstrates the AI's ability to do a clean room 
 implementation of Bluetooth codecs.
 
-AptX Adaptive for Linux contains a Rust encoder and a Bluetooth codec plugin 
-for PipeWire.
+AptX Adaptive for Linux contains a Rust encoder, patches and plugin for PipeWire
+and patches for linux bluethooth library.
 
 It streams audio from a Linux desktop to aptX Adaptive headphones over stock
 BlueZ and PipeWire, with no USB dongle and no external codec files. 
