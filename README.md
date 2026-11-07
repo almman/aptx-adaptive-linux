@@ -136,8 +136,10 @@ under an aptX Adaptive profile. Re-running it is safe.
 
 ### ST0 is headset-dependent
 
-The installer sets `APTX_ADAPTIVE_ST0=1` by default, and that is a **default for the headset
-we test on, not a rule**:
+The installer leaves `APTX_ADAPTIVE_ST0` unset by default, selecting host-timed
+operation. Some headsets require source-timed operation instead. To enable it,
+add the following environment setting to the PipeWire and WirePlumber user
+service drop-ins:
 
 ```conf
 Environment="APTX_ADAPTIVE_ST0=1"
@@ -153,6 +155,7 @@ Both values are needed in the field, measured on the current code with real musi
 |---|---|---|
 | Bose Quiet Comfort Ultra (ours) | clean | **stream dies and the headset restarts** |
 | Audio-Technica ATH-TWX9MK2 (community report) | static / popping | clean |
+| FiiO BTR13 (Fedora 45, PipeWire 1.6.11) | silent | clean |
 
 Neither is universally right, so the plugin chooses per headset: it reads the device address
 from the settings dict and an outlier list can override the default for one device without
@@ -163,7 +166,7 @@ Environment="APTX_ADAPTIVE_SOURCE_TYPE_OVERRIDES=11:22:33:44:55:66=2"
 ```
 
 Format: `ADDR=0;OTHER=2`, matched case-insensitively against `api.bluez5.address`. Unlisted
-headsets follow `APTX_ADAPTIVE_ST0` (default source-timed). The plugin logs its choice, which
+headsets follow `APTX_ADAPTIVE_ST0` (default host-timed). The plugin logs its choice, which
 makes a compatibility report self-diagnosing:
 
 ```sh
